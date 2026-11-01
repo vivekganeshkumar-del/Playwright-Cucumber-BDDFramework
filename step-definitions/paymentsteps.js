@@ -50,8 +50,8 @@ this.data.messageIdentification = generateMessageId();
 When(
   'I submit the payment request to the payment API',
   async function () {
-    const baseUrl = process.env.BASE_URL;
-    const paymentEndpoint = process.env.PAYMENT_ENDPOINT;
+    const baseUrl = process.env.example.BASE_URL;
+    const paymentEndpoint = process.env.example.PAYMENT_ENDPOINT;
 
     if (!baseUrl || !paymentEndpoint) {
       throw new Error(
