@@ -47,8 +47,11 @@ jobs:
       - name: Install Dependencies
         run: npm ci
 
-        #       - name: Create .env File 
-        # run: Copy-Item .env.example .env 
+ env:
+          TEST_SUITE: ${{ github.event_name == 'workflow_dispatch' && inputs.test_suite || 'all' }}
+          CI: "true"
+          BASE_URL: ${{ secrets.BASE_URL }}
+          PAYMENT_ENDPOINT: ${{ secrets.PAYMENT_ENDPOINT }}
 
     # 4. Execute selected Cucumber test suite
       - name: Run Cucumber API Tests
