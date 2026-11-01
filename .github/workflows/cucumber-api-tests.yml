@@ -1,0 +1,70 @@
+
+name: Payment API - Cucumber BDD CI Pipeline
+
+on:
+  push:
+    branches:
+      - master
+
+  pull_request:
+    branches:
+      - master
+
+  workflow_dispatch:
+    inputs:
+      test_suite:
+        description: "Select Cucumber test suite"
+        required: true
+        type: choice
+        options:
+          - all
+          - master
+          - sanity
+          - regression
+          - datadriven
+        default: sanity
+
+jobs:
+  cucumber-api-tests:
+    name: Execute Payment API Automation
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+
+      # 1. Checkout GitHub repository
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      # 2. Setup Node.js
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+          cache: npm
+
+      # 3. Install project dependencies
+      - name: Install Dependencies
+        run: npm ci
+
+      # 4. Execute selected Cucumber test suite
+      - name: Run Cucumber API Tests
+        run: |
+          if [ "$TEST_SUITE" = "all" ]; then
+            npm run test:bdd
+          else
+            npm run test:bdd -- --tags "@$TEST_SUITE"
+          fi
+        env:
+          TEST_SUITE: ${{ github.event_name == 'workflow_dispatch' && inputs.test_suite || 'all' }}
+          CI: "true"
+
+      # 5. Upload Allure execution results
+      - name: Upload Allure Results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cucumber-allure-results
+          path: allure-results/
+          retention-days: 30
+          if-no-files-found: warn

@@ -1,0 +1,6 @@
+.env
+node_modules/
+allure-report/
+allure-results/
+reports/
+mock-server.log

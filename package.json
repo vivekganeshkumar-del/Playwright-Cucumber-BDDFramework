@@ -1,0 +1,32 @@
+{
+  "name": "playwright-api-payment-framework",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test:bdd": "node ./node_modules/@cucumber/cucumber/bin/cucumber.js",
+    "test:bdd:master": "npm run test:bdd -- --tags @master",
+    "test:bdd:sanity": "npm run test:bdd -- --tags @sanity",
+    "test:bdd:regression": "npm run test:bdd -- --tags @regression",
+    "test:bdd:datadriven": "npm run test:bdd -- --tags @datadriven",
+    "report:generate": "allure generate ./allure-results --clean -o ./allure-report",
+    "report:open": "allure open ./allure-report",
+    "mock:start": "node mock-server/paymentServer.js",
+    "test:bdd:one": "node ./node_modules/@cucumber/cucumber/bin/cucumber.js --name \"Validate payment API response\""
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "@cucumber/cucumber": "^13.3.0",
+    "@playwright/test": "^1.64.1",
+    "allure": "^3.22.1",
+    "allure-cucumberjs": "^3.14.0"
+  },
+  "dependencies": {
+    "dotenv": "^18.0.9",
+    "exceljs": "^4.4.0"
+  }
+}
+

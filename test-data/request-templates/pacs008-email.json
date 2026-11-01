@@ -1,0 +1,8 @@
+{
+  "messageID": "messageIdentification*****",
+  "transactionInfo": {
+    "transactionID": "TD_NO*****",
+    "paymentAmount": "amount*****",
+    "currency": "currency*****"
+  }
+}
