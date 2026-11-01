@@ -50,14 +50,16 @@ jobs:
         #       - name: Create .env File 
         # run: Copy-Item .env.example .env 
 
-      # 4. Execute selected Cucumber test suite
+    # 4. Execute selected Cucumber test suite
       - name: Run Cucumber API Tests
+        shell: pwsh
         run: |
-          if [ "$TEST_SUITE" = "all" ]; then
+          if ($env:TEST_SUITE -eq "all") {
             npm run test:bdd
-          else
-            npm run test:bdd -- --tags "@$TEST_SUITE"
-          fi
+          }
+          else {
+            npm run test:bdd -- --tags "@$env:TEST_SUITE"
+          }
         env:
           TEST_SUITE: ${{ github.event_name == 'workflow_dispatch' && inputs.test_suite || 'all' }}
           CI: "true"

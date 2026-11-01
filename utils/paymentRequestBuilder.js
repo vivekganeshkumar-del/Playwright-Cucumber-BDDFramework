@@ -45,7 +45,7 @@ function buildPaymentRequest(data) {
     const replacement = JSON.stringify(data[key]);
 
     requestJson = requestJson.replaceAll(
-      searchText,
+      searchText, 
       () => replacement
     );
   }
