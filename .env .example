@@ -1,0 +1,2 @@
+BASE_URL=http://localhost:8089
+PAYMENT_ENDPOINT=/api/v1/payments
