@@ -47,8 +47,8 @@ jobs:
       - name: Install Dependencies
         run: npm ci
 
-              - name: Create .env File 
-        run: Copy-Item .env.example .env 
+        #       - name: Create .env File 
+        # run: Copy-Item .env.example .env 
 
       # 4. Execute selected Cucumber test suite
       - name: Run Cucumber API Tests
